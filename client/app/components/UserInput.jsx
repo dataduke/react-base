@@ -12,14 +12,23 @@ export class UserInput extends React.Component {
 
         this.state = {
             name: props.user.name ? props.user.name : '',
-            age: props.user.age ? props.user.age : ''
+            age: props.user.age ? props.user.age : '',
+            step: 1
         }
 
         // this.set = setter(this);
     }
 
-    submit() {
+    // submit() {
+    //     this.props.set_name(this.state.name);
+    //     this.props.set_age(this.state.age);
+    // }
+
+    submitName() {
         this.props.set_name(this.state.name);
+    }
+
+    submitAge() {
         this.props.set_age(this.state.age);
     }
 
@@ -32,34 +41,56 @@ export class UserInput extends React.Component {
     }
 
     render() {
-        let id = parseInt(Date.now() * Math.random());
 
         return (
             <div className="userInput" >
-                <p>Wie ist denn dein Name?</p>
-                <div>
-                    <p>
-                        <label htmlFor={'userName_' + id} >Name:</label>
-                        <input type="text" id={'userName_' + id} value={this.state.name} onChange={this.onChangeName.bind(this)} />
-                    </p>
-                </div>
-                <div>
-                    <p>
-                        <label htmlFor={'userAge_' + id} >Alter:</label>
-                        <input type="text" id={'userAge_' + id} value={this.state.age} onChange={this.onChangeAge.bind(this)} />
-                    </p>
-                </div>
-                <button onClick={this.submit.bind(this)} >Abschicken</button>
+                {this.renderStep()}
             </div>
         );
     }
 
+    renderStep() {
+        switch(this.props.app.step) {
+            case '1':
+                let id = parseInt(Date.now() * Math.random());
+                return (
+                    <div>
+                        <p>Wie ist denn dein Name?</p>
+                        <div>
+                            <p>
+                                <label htmlFor={'userName_' + id} >Name:</label>
+                                <input type="text" id={'userName_' + id} value={this.state.name} onChange={this.onChangeName.bind(this)} />
+                            </p>
+                        </div>
+                        <button onClick={this.submitName.bind(this)} >Weiter</button>
+                    </div>
+                )
+            case '2':
+                return (
+                    <div>
+                        <p>Wie alt bist du?</p>
+                        <div>
+                            <p>
+                                <label htmlFor={'userAge_' + id} >Alter:</label>
+                                <input type="text" id={'userAge_' + id} value={this.state.age} onChange={this.onChangeAge.bind(this)} />
+                            </p>
+                        </div>
+                        <button onClick={this.submitAge.bind(this)} >Abschicken</button>
+                    </div>
+                )
+            default:
+                return(
+                 <div>
+                        <p>Error</p>
+                 </div>
+                )
+        }
+    }
 };
 
-
-
 const mapStateToProps = (state, ownProps) => ({
-    user: state.user
+    user: state.user,
+    app: state.app
 });
 
 export default connect(mapStateToProps, { set_age, set_name })(UserInput);

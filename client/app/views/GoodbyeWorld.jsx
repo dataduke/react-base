@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { delete_age, delete_name } from 'STORE/actions.js';
+import { reset_app } from 'STORE/actions.js';
 import { Link } from 'react-router-dom';
 import DefaultPage from 'COMP/DefaultPage.jsx';
 
@@ -12,8 +12,8 @@ export class GoodbyeWorld extends React.Component {
     }
 
     submit() {
-        this.props.delete_name(this.state.name);
-        this.props.delete_age(this.state.age);
+        this.props.reset_app();
+
     }
 
     render() {
@@ -36,7 +36,8 @@ export class GoodbyeWorld extends React.Component {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    user: state.user
+    user: state.user,
+    app: state.app
 });
 
-export default connect(mapStateToProps, { delete_age, delete_name })(GoodbyeWorld);
+export default connect(mapStateToProps, { reset_app })(GoodbyeWorld);
