@@ -7,3 +7,13 @@ export const delete_name = () => ({
   type: 'SET_NAME',
   name: undefined
 });
+
+export const set_age = (age) => ({
+  type: 'SET_AGE',
+  age
+});
+
+export const delete_age = () => ({
+  type: 'SET_AGE',
+  age: undefined
+});

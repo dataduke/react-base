@@ -18,7 +18,7 @@ export class HelloWorld extends React.Component {
         		{
         			this.props.user.name
         			? <div>
-        				<p>Hallo, {this.props.user.name}</p>
+        				<p>Hallo, {this.props.user.name} ({this.props.user.age})</p>
         				<Link to="/bye">Tschüss! <span className="fa fa-angle-double-right"></span></Link>
         			</div>
         			: <div>
